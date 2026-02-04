@@ -14,7 +14,7 @@ func main() {
 	playgame.WordList = game.GetFile()
 
 	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run . [index of the word]")
+		fmt.Println("Please provide a number as command line argument")
 		return
 	}
 

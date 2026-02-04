@@ -13,22 +13,13 @@ type Game struct {
 	WordList     []string
 }
 
-func User(scanner *bufio.Scanner) {
+func User() string {
 
-	//StartScreen
-	for {
-		fmt.Print("Enter your username: ")
-		username := GetInput(scanner)
+	var username string
+	fmt.Print("Enter your username: ")
+	fmt.Scanln(&username)
+	return username
 
-		if username == "-1" {
-			fmt.Println("\nGoodbye!")
-			return
-		}
-		if username != "" {
-			break
-		}
-		fmt.Println("Please provide username")
-	}
 }
 
 func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) {

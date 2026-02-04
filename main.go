@@ -27,8 +27,10 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	// model.StatFile()
-	game.User(scanner)
-
+	username := game.User()
+	if username == "" {
+		return
+	}
 	if index < 0 || index >= len(playgame.WordList) {
 		fmt.Println("Invalid word number.\nPress Enter to exit...")
 		return

@@ -30,7 +30,7 @@ func main() {
 	game.User(scanner)
 
 	if index < 0 || index >= len(playgame.WordList) {
-		fmt.Print("Invalid word number.\nPress Enter to exit...")
+		fmt.Print("Invalid word number.\nPress Enter to exit...\n ")
 		return
 	}
 

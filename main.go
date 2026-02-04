@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"koodWordle/game"
-	"koodWordle/model"
 	"os"
 	"strconv"
 )
@@ -32,7 +31,7 @@ func main() {
 	// }
 
 	scanner := bufio.NewScanner(os.Stdin)
-	model.StatFile()
+	// model.StatFile()
 	game.StartScreen(scanner, index, &playgame)
 	//Print stats
 	fmt.Print("Do you want to see your stats? (yes/no)")

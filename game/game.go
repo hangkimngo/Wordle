@@ -17,7 +17,7 @@ func User(scanner *bufio.Scanner) {
 
 	//StartScreen
 	for {
-		fmt.Println("Enter your username:")
+		fmt.Print("Enter your username:  ")
 		username := GetInput(scanner)
 
 		if username == "-1" {

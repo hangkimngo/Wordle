@@ -25,13 +25,19 @@ func main() {
 		return
 	}
 
-	// if index < 0 || index >= len(playgame.WordList) {
-	// 	fmt.Printf("Index must be between 0 and %d\n", len(playgame.WordList)-1)
-	// 	return
-	// }
+	if index < 0 || index >= len(playgame.WordList) {
+		fmt.Printf("Index must be between 0 and %d\n", len(playgame.WordList)-1)
+		return
+	}
 
 	scanner := bufio.NewScanner(os.Stdin)
 	// model.StatFile()
+	game.User(scanner)
+	if index < 0 || index >= len(playgame.WordList) {
+		fmt.Print("Invalid word number.\nPress Enter to exit...")
+		return
+	}
+
 	game.StartScreen(scanner, index, &playgame)
 	//Print stats
 	fmt.Print("Do you want to see your stats? (yes/no)")

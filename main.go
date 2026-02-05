@@ -22,7 +22,7 @@ func main() {
 	index, err := strconv.Atoi(index_word)
 
 	if err != nil {
-		fmt.Print("Invalid command-line argument. Please launch with a valid number.")
+		fmt.Println("Invalid command-line argument. Please launch with a valid number.")
 		return
 	}
 
@@ -60,10 +60,10 @@ func main() {
 		fmt.Printf("Games played: %d\n", us.Played)
 		fmt.Printf("Games won: %d\n", us.Won)
 		fmt.Printf("Average attempts per game: %.2f\n", us.AvgAttempts)
-		fmt.Println("Press Enter to exit...")
+		fmt.Print("Press Enter to exit...")
 		_, _ = game.GetInput(scanner)
 	} else {
-		fmt.Println("Press Enter to exit...")
+		fmt.Print("Press Enter to exit...")
 		_, _ = game.GetInput(scanner)
 	}
 

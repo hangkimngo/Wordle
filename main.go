@@ -42,29 +42,32 @@ func main() {
 
 	attemptsUsed, outcome, secret := game.StartScreen(scanner, index, &playgame)
 
-	_ = store.AppendGameStat("stats.csv", store.GameStat{
-		Username: username,
-		Secret:   secret, // or playgame.secret_word if you expose it
-		Attempts: attemptsUsed,
-		Outcome:  outcome,
-	})
+	if outcome != "abort" {
+		_ = store.AppendGameStat("stats.csv", store.GameStat{
+			Username: username,
+			Secret:   secret,
+			Attempts: attemptsUsed,
+			Outcome:  outcome, // "win" or "loss"
+		})
 
-	fmt.Println("Do you want to see your stats? (yes/no):")
-	show, ok := game.GetInput(scanner)
-	if !ok {
-		return
-	}
-	if show == "yes" {
-		us, _ := store.ReadUserStats("stats.csv", username)
-		fmt.Printf("Stats for %s:\n", username)
-		fmt.Printf("Games played: %d\n", us.Played)
-		fmt.Printf("Games won: %d\n", us.Won)
-		fmt.Printf("Average attempts per game: %.2f\n", us.AvgAttempts)
-		fmt.Println("Press Enter to exit...")
-		_, _ = game.GetInput(scanner)
-	} else {
-		fmt.Println("Press Enter to exit...")
-		_, _ = game.GetInput(scanner)
+		fmt.Print("Do you want to see your stats? (yes/no):")
+		show, ok := game.GetInput(scanner)
+		if !ok {
+			return
+		}
+
+		if show == "yes" {
+			us, _ := store.ReadUserStats("stats.csv", username)
+			fmt.Printf("Stats for %s:\n", username)
+			fmt.Printf("Games played: %d\n", us.Played)
+			fmt.Printf("Games won: %d\n", us.Won)
+			fmt.Printf("Average attempts per game: %.2f\n", us.AvgAttempts)
+			fmt.Println("Press Enter to exit...")
+			_, _ = game.GetInput(scanner)
+		} else {
+			fmt.Println("Press Enter to exit...")
+			_, _ = game.GetInput(scanner)
+		}
 	}
 
 }

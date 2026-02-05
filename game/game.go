@@ -39,7 +39,7 @@ func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) (int, s
 
 		guess, ok := GetInput(scanner)
 		if !ok { // EOF
-			return attemptsUsed, "loss", playgame.secret_word
+			return attemptsUsed, "abort", playgame.secret_word
 		}
 		playgame.guess_letter = guess
 

@@ -3,6 +3,7 @@ package game
 import (
 	"bufio"
 	"fmt"
+	"strings"
 )
 
 type Game struct {
@@ -13,13 +14,12 @@ type Game struct {
 	WordList     []string
 }
 
-func User() string {
-
-	var username string
-	fmt.Print("Enter your username: ")
-	fmt.Scanln(&username)
-	return username
-
+func User(scanner *bufio.Scanner) string {
+	fmt.Println("Enter your username:")
+	if !scanner.Scan() {
+		return ""
+	}
+	return strings.TrimSpace(scanner.Text())
 }
 
 func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) {
@@ -37,6 +37,9 @@ func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) {
 	for {
 		fmt.Println("Enter your guess:")
 		playgame.guess_letter = GetInput(scanner)
+		if playgame.guess_letter == "" {
+			return
+		}
 		if LenCheck(playgame) {
 			if LowercaseCheck(playgame) {
 				if ValidWord(playgame.WordList, playgame) {

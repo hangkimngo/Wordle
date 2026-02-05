@@ -7,7 +7,7 @@ import (
 )
 
 func GetFile() []string {
-	file, err := os.Open("db/valid-wordle-words.txt")
+	file, err := os.Open("wordle-words.txt")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return nil

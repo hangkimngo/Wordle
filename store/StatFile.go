@@ -1,4 +1,4 @@
-package model
+package store
 
 import (
 	"encoding/csv"
@@ -7,7 +7,7 @@ import (
 )
 
 func StatFile() [][]string {
-	dbFile := "db/stats.csv"
+	dbFile := "stats.csv"
 	file, err := os.OpenFile(dbFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -34,5 +34,4 @@ func StatFile() [][]string {
 		fmt.Println("Error reading records")
 	}
 	return records
-
 }

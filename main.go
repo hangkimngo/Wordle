@@ -26,19 +26,25 @@ func main() {
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
-	// model.StatFile()
-	username := game.User()
+
+	username := game.User(scanner)
 	if username == "" {
 		return
 	}
+
+	_ = username
+
 	if index < 0 || index >= len(playgame.WordList) {
 		fmt.Println("Invalid word number.\nPress Enter to exit...")
 		return
 	}
 
 	game.StartScreen(scanner, index, &playgame)
+
+	// model.StatFile()
+
 	//Print stats
-	fmt.Print("Do you want to see your stats? (yes/no)")
+	fmt.Print("Do you want to see your stats? (yes/no):")
 	ShowStats := game.GetInput(scanner)
 	if ShowStats == "yes" {
 		fmt.Println("stats for")

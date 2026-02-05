@@ -47,7 +47,7 @@ func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) (int, s
 			attemptsUsed++
 
 			if playgame.secret_word == playgame.guess_letter {
-				fmt.Println("Congratulations!You've guessed the word correctly.")
+				fmt.Println("Congratulations! You've guessed the word correctly.")
 				return attemptsUsed, "win", playgame.secret_word
 			}
 			playgame.attempts--

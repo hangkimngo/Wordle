@@ -54,7 +54,7 @@ func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) (int, s
 			Feedback(playgame)
 
 			if playgame.attempts == 0 {
-				fmt.Println("Game over. the correct word was:", playgame.secret_word)
+				fmt.Println("Game over. The correct word was:", playgame.secret_word)
 				return attemptsUsed, "loss", playgame.secret_word
 			}
 		}

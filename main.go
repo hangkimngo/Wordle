@@ -50,7 +50,7 @@ func main() {
 			Outcome:  outcome, // "win" or "loss"
 		})
 
-		fmt.Print("Do you want to see your stats? (yes/no): ")
+		fmt.Print("Do you want to see your stats? (yes/no):")
 		show, ok := game.GetInput(scanner)
 		if !ok {
 			return

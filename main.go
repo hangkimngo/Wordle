@@ -36,7 +36,7 @@ func main() {
 	_ = username
 
 	if index < 0 || index >= len(playgame.WordList) {
-		fmt.Print("Invalid word number.\nPress Enter to exit...")
+		fmt.Println("Invalid word number.\nPress Enter to exit...")
 		return
 	}
 

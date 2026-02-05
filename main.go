@@ -41,12 +41,15 @@ func main() {
 	attemptsUsed, outcome, secret := game.StartScreen(scanner, index, &playgame)
 
 	if outcome != "abort" {
-		_ = store.AppendGameStat("stats.csv", store.GameStat{
+		err := store.AppendGameStat("stats.csv", store.GameStat{
 			Username: username,
 			Secret:   secret,
 			Attempts: attemptsUsed,
 			Outcome:  outcome, // "win" or "loss"
 		})
+		if err != nil {
+			return
+		}
 
 		fmt.Print("Do you want to see your stats? (yes/no): ")
 		show, ok := game.GetInput(scanner)

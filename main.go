@@ -60,10 +60,10 @@ func main() {
 		fmt.Printf("Games played: %d\n", us.Played)
 		fmt.Printf("Games won: %d\n", us.Won)
 		fmt.Printf("Average attempts per game: %.2f\n", us.AvgAttempts)
-		fmt.Print("Press Enter to exit...")
+		fmt.Println("Press Enter to exit...")
 		_, _ = game.GetInput(scanner)
 	} else {
-		fmt.Print("Press Enter to exit...")
+		fmt.Println("Press Enter to exit...")
 		_, _ = game.GetInput(scanner)
 	}
 

@@ -2,36 +2,85 @@ package store
 
 import (
 	"encoding/csv"
-	"fmt"
 	"os"
+	"strconv"
 )
 
-func StatFile() [][]string {
-	dbFile := "stats.csv"
-	file, err := os.OpenFile(dbFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
+type GameStat struct {
+	Username string
+	Secret   string
+	Attempts int
+	Outcome  string // "win" or "loss"
+}
+
+type UserStats struct {
+	Played      int
+	Won         int
+	AvgAttempts float64
+}
+
+// Append one row: username,secret word,attempts,win/loss
+func AppendGameStat(path string, s GameStat) error {
+	f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0664)
 	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	w := csv.NewWriter(f)
+	defer w.Flush()
+
+	return w.Write([]string{
+		s.Username,
+		s.Secret,
+		strconv.Itoa(s.Attempts),
+		s.Outcome,
+	})
+}
+
+// Read stats for a username and compute totals
+func ReadUserStats(path, username string) (UserStats, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		// If file doesn't exist yet, treat as 0 stats (don’t crash tests)
 		if os.IsNotExist(err) {
-			file, err = os.Create(dbFile)
-			if err != nil {
-				fmt.Println("Error creating file:", err)
-			}
-		} else {
-			fmt.Println("Error opening file:", err)
+			return UserStats{Played: 0, Won: 0, AvgAttempts: 0}, nil
+		}
+		return UserStats{}, err
+	}
+	defer f.Close()
+
+	r := csv.NewReader(f)
+
+	played := 0
+	won := 0
+	sumAttempts := 0
+
+	for {
+		rec, err := r.Read()
+		if err != nil {
+			break
+		}
+		if len(rec) < 4 {
+			continue
+		}
+		if rec[0] != username {
+			continue
+		}
+		played++
+		a, _ := strconv.Atoi(rec[2])
+		sumAttempts += a
+		if rec[3] == "win" {
+			won++
 		}
 	}
-	defer file.Close()
-	// The csv.NewReader() function is called in
-	// which the object os.File passed as its parameter
-	// and this creates a new csv.Reader that reads
-	// from the file
-	reader := csv.NewReader(file)
 
-	// ReadAll reads all the records from the CSV file
-	// and Returns them as slice of slices of string
-	// and an error if any
-	records, err := reader.ReadAll()
-	if err != nil {
-		fmt.Println("Error reading records")
+	if played == 0 {
+		return UserStats{Played: 0, Won: 0, AvgAttempts: 0}, nil
 	}
-	return records
+	return UserStats{
+		Played:      played,
+		Won:         won,
+		AvgAttempts: float64(sumAttempts) / float64(played),
+	}, nil
 }

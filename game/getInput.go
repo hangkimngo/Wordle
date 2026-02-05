@@ -2,14 +2,12 @@ package game
 
 import (
 	"bufio"
-	"fmt"
 	"strings"
 )
 
-func GetInput(scanner *bufio.Scanner) string {
+func GetInput(scanner *bufio.Scanner) (string, bool) {
 	if !scanner.Scan() {
-		fmt.Println("Scan() returned false (EOF or stdin closed)")
-		return ""
+		return "", false
 	}
-	return strings.TrimSpace(scanner.Text())
+	return strings.TrimSpace(scanner.Text()), true
 }

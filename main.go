@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"koodWordle/game"
+	"koodWordle/store"
 	"os"
 	"strconv"
 )
@@ -39,25 +40,31 @@ func main() {
 		return
 	}
 
-	game.StartScreen(scanner, index, &playgame)
+	attemptsUsed, outcome, secret := game.StartScreen(scanner, index, &playgame)
 
-	// model.StatFile()
+	_ = store.AppendGameStat("stats.csv", store.GameStat{
+		Username: username,
+		Secret:   secret, // or playgame.secret_word if you expose it
+		Attempts: attemptsUsed,
+		Outcome:  outcome,
+	})
 
-	//Print stats
-	fmt.Print("Do you want to see your stats? (yes/no):")
-	ShowStats := game.GetInput(scanner)
-	if ShowStats == "yes" {
-		fmt.Println("stats for")
+	fmt.Println("Do you want to see your stats? (yes/no):")
+	show, ok := game.GetInput(scanner)
+	if !ok {
+		return
+	}
+	if show == "yes" {
+		us, _ := store.ReadUserStats("stats.csv", username)
+		fmt.Printf("Stats for %s:\n", username)
+		fmt.Printf("Games played: %d\n", us.Played)
+		fmt.Printf("Games won: %d\n", us.Won)
+		fmt.Printf("Average attempts per game: %.2f\n", us.AvgAttempts)
+		fmt.Println("Press Enter to exit...")
+		_, _ = game.GetInput(scanner)
 	} else {
 		fmt.Println("Press Enter to exit...")
+		_, _ = game.GetInput(scanner)
 	}
-	for {
-		IsEnter := game.GetInput(scanner)
-		if IsEnter == "-1" {
-			return
-		}
-		if IsEnter == "" {
-			return
-		}
-	}
+
 }

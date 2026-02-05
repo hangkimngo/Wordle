@@ -38,7 +38,6 @@ func Feedback(game *Game) {
 			remaining += string(r) + " "
 		}
 	}
-	game.attempts--
 
 	fmt.Println("Feedback:", feedback.String())
 	fmt.Println(remaining)

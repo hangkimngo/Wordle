@@ -7,7 +7,7 @@ func LenCheck(game *Game) bool {
 		fmt.Println("Make a guess!")
 		return false
 	} else if len(game.guess_letter) != 5 {
-		fmt.Println("Your guest must be exactly 5 letters long.")
+		fmt.Println("  Your guest must be exactly 5 letters long.")
 		return false
 	}
 	return true

@@ -34,7 +34,7 @@ func Feedback(game *Game) {
 			}
 
 		} else {
-			feedback += c.White + letter + c.Reset
+			feedback += c.Gray + letter + c.Reset
 			game.seen[ch-'a'+'A'] = false
 		}
 	}

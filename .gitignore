@@ -29,5 +29,4 @@ go.work.sum
 .env
 
 #stats file
-wordle-words.txt
 stats.csv

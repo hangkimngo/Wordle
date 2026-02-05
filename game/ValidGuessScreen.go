@@ -18,29 +18,34 @@ func ValidGuessScreen(game *Game) bool {
 }
 
 func Feedback(game *Game) {
-	var feedback strings.Builder
+	feedback := ""
 	remaining := "Remaining letters: "
+
 	for i, ch := range game.guess_letter {
+
+		letter := strings.ToUpper(string(ch))
+
 		if strings.ContainsRune(game.secret_word, ch) {
-			if i < len(game.secret_word) && byte(game.secret_word[i]) == byte(ch) {
-				feedback.WriteString(c.Green + strings.ToUpper(string(ch)) + c.Reset)
+
+			if game.secret_word[i] == byte(ch) {
+				feedback += c.Green + letter + c.Reset
 			} else {
-				feedback.WriteString(c.Yellow + strings.ToUpper(string(ch)) + c.Reset)
+				feedback += c.Yellow + letter + c.Reset
 			}
 
 		} else {
-			feedback.WriteString(strings.ToUpper(string(ch)))
+			feedback += c.White + letter + c.Reset
 			game.seen[ch-'a'+'A'] = false
 		}
 	}
+
 	for r := 'A'; r <= 'Z'; r++ {
-		if game.seen[r] == true {
+		if game.seen[r] {
 			remaining += string(r) + " "
 		}
 	}
 
-	fmt.Println("Feedback:", feedback.String())
+	fmt.Println("Feedback:", feedback)
 	fmt.Println(remaining)
-	fmt.Println("Attempts remaining: ", game.attempts)
-
+	fmt.Printf("Attempts remaining:  %d\n", game.attempts)
 }

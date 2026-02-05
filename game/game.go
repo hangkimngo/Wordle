@@ -15,7 +15,7 @@ type Game struct {
 }
 
 func User(scanner *bufio.Scanner) string {
-	fmt.Print("Enter your username:  ")
+	fmt.Print("Enter your username: ")
 	if !scanner.Scan() {
 		return ""
 	}

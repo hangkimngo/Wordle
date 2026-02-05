@@ -35,7 +35,7 @@ func StartScreen(scanner *bufio.Scanner, index_word int, playgame *Game) (int, s
 	fmt.Println("Welcome to Wordle! Guess the 5-letter word.")
 
 	for {
-		fmt.Print("Enter your guess: ")
+		fmt.Print("Enter your guess:")
 
 		guess, ok := GetInput(scanner)
 		if !ok { // EOF

@@ -6,16 +6,16 @@ import (
 	"strings"
 )
 
-func ValidGuessScreen(game *Game) bool {
+// func ValidGuessScreen(game *Game) bool {
 
-	if game.secret_word == game.guess_letter {
-		return true
-	}
+// 	if game.secret_word == game.guess_letter {
+// 		return true
+// 	}
 
-	Feedback(game)
-	return false
+// 	Feedback(game)
+// 	return false
 
-}
+// }
 
 func Feedback(game *Game) {
 	feedback := ""
